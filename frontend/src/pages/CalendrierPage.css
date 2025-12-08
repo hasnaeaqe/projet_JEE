@@ -1,0 +1,36 @@
+.calendrier-page {
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.calendar-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.rbc-calendar {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rbc-header {
+  padding: 10px 3px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.rbc-today {
+  background-color: #e8f4f8;
+}
+
+.rbc-event {
+  padding: 2px 5px;
+  font-size: 0.875rem;
+}
