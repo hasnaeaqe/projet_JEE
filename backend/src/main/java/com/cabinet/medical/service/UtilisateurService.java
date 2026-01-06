@@ -12,12 +12,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 @RequiredArgsConstructor
 public class UtilisateurService {
 
+
     private final UtilisateurRepository utilisateurRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<Utilisateur> getAllUsers() {
         return utilisateurRepository.findAll();
@@ -29,9 +31,11 @@ public class UtilisateurService {
     }
 
     public Utilisateur createUser(UserRequest request) {
+
         if (utilisateurRepository.existsByLogin(request.getLogin())) {
             throw new RuntimeException("Ce login existe déjà");
         }
+        String hashedPassword = passwordEncoder.encode(request.getPwd());
 
         Utilisateur user;
 
@@ -39,7 +43,8 @@ public class UtilisateurService {
             case MEDECIN:
                 user = new Medecin(
                         request.getLogin(),
-                        request.getPwd(),
+                        hashedPassword,
+
                         request.getNom(),
                         request.getPrenom(),
                         request.getNumTel(),
@@ -49,7 +54,8 @@ public class UtilisateurService {
             case SECRETAIRE:
                 user = new Secretaire(
                         request.getLogin(),
-                        request.getPwd(),
+                        hashedPassword,
+
                         request.getNom(),
                         request.getPrenom(),
                         request.getNumTel()
@@ -58,7 +64,8 @@ public class UtilisateurService {
             case ADMINISTRATEUR:
                 user = new Administrateur(
                         request.getLogin(),
-                        request.getPwd(),
+                        hashedPassword,
+
                         request.getNom(),
                         request.getPrenom(),
                         request.getNumTel()

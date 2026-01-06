@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
     Optional<Utilisateur> findByLogin(String login);
-    Optional<Utilisateur> findByLoginAndPwd(String login, String pwd);
+
     List<Utilisateur> findByRole(RoleEnum role);
     boolean existsByLogin(String login);
 }

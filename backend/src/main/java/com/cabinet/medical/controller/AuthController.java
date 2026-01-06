@@ -1,11 +1,10 @@
 package com.cabinet.medical.controller;
 
-
-
 import com.cabinet.medical.dto.request.LoginRequest;
 import com.cabinet.medical.dto.response.LoginResponse;
 import com.cabinet.medical.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,14 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authService.login(request));
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        try {
+            LoginResponse response = authService.login(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("{\"message\":\"" + e.getMessage() + "\"}");
+        }
     }
 
     @PostMapping("/logout")

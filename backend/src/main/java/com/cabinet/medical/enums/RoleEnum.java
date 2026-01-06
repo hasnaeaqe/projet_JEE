@@ -1,7 +1,14 @@
 package com.cabinet.medical.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum RoleEnum {
+    ADMINISTRATEUR,
     MEDECIN,
-    SECRETAIRE,
-    ADMINISTRATEUR
+    SECRETAIRE;
+
+    @JsonValue
+    public String getValue() {
+        return this.name();
+    }
 }
